@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <title>로또 번호 추첨 게임</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 300px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+        .lotto-number {
+            display: inline-block;
+            margin: 5px;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            border-radius: 50%;
+            background: #FFD700;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>로또 번호 추첨</h1>
+        <p>생년월일을 입력하세요:</p>
+        <!-- 여기서는 단순히 date input을 사용 -->
+        <input type="date" id="birthday" /><br><br>
+
+        <button id="drawBtn">번호 뽑기</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+    
+    <script>
+        document.getElementById('drawBtn').addEventListener('click', function() {
+            var birthday = document.getElementById('birthday').value;
+            
+            // 생년월일을 사용하지 않고 단순히 랜덤 추출
+            // 중복 없는 6개의 랜덤 숫자(1~45)
+            var numbers = [];
+            while (numbers.length < 6) {
+                var rand = Math.floor(Math.random() * 45) + 1;
+                if (!numbers.includes(rand)) {
+                    numbers.push(rand);
+                }
+            }
+            
+            // 결과 표시
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+            numbers.sort(function(a,b){return a-b;}); // 정렬
+            numbers.forEach(function(num) {
+                var span = document.createElement('span');
+                span.className = 'lotto-number';
+                span.textContent = num;
+                resultDiv.appendChild(span);
+            });
+        });
+    </script>
+</body>
+</html>
